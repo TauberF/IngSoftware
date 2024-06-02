@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banknet Horizon Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .header {
+            background-color: #FF6600; /* Darker orange color */
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .logo img {
+            height: 100px; /* Set max height */
+            width: auto; /* Maintain aspect ratio */
+        }
+        .menu {
+            position: relative;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .menu-button {
+            background-color: #FF6600;
+            border: none;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+        }
+        .menu:hover {
+            background-color: #FF9900; /* Lighter highlight */
+        }
+        .menu-options {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        .menu-options button {
+            background-color: white;
+            border: none;
+            color: #FF6600;
+            padding: 10px 20px;
+            width: 300px;
+            text-align: left;
+            cursor: pointer;
+        }
+        .menu-options button:hover {
+            background-color: #FF9900; /* Lighter highlight */
+            color: white;
+        }
+        .menu:hover .menu-options {
+            display: block;
+        }
+        .user-info {
+            position: relative;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .username {
+            font-weight: bold;
+        }
+        .user-info:hover {
+            background-color: #FF9900; /* Lighter highlight */
+        }
+        .account-settings {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        .account-settings button {
+            background-color: white;
+            border: none;
+            color: #FF6600;
+            padding: 10px 20px;
+            width: 200px;
+            text-align: left;
+            cursor: pointer;
+        }
+        .account-settings button:hover {
+            background-color: #FF9900; /* Lighter highlight */
+            color: white;
+        }
+        .content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="menu" onclick="toggleMenuOptions()">
+        <button class="menu-button">Menu</button>
+        <div class="menu-options">
+            <button>Consultas de estados de cuenta</button>
+            <button>Transferencia entre cuentas de empresa</button>
+            <button>Consultas de saldos históricos</button>
+            <button>Transferencia entre cuentas de otros clientes del banco</button>
+        </div>
+    </div>
+    <div class="logo">
+        <img src="https://github.com/TauberF/IngSoftware/blob/main/MockupsPantallas/Logo.png?raw=true" alt="Logo">
+    </div>
+    <div class="user-info" onclick="toggleAccountSettings()">
+        <span>Hello, <span class="username">{username}</span></span>
+        <div class="account-settings">
+            <button>Configurar cuenta</button>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <!-- Main content area left blank for adding functionalities later -->
+</div>
+
+<script>
+    function toggleAccountSettings() {
+        var accountSettings = document.querySelector('.account-settings');
+        if (accountSettings.style.display === 'block') {
+            accountSettings.style.display = 'none';
+        } else {
+            accountSettings.style.display = 'block';
+        }
+    }
+
+    function toggleMenuOptions() {
+        var menuOptions = document.querySelector('.menu-options');
+        if (menuOptions.style.display === 'block') {
+            menuOptions.style.display = 'none';
+        } else {
+            menuOptions.style.display = 'block';
+        }
+    }
+    
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.user-info') && !event.target.matches('.username') && !event.target.matches('.menu') && !event.target.matches('.menu-button')) {
+            var dropdowns = document.getElementsByClassName('account-settings');
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.style.display === 'block') {
+                    openDropdown.style.display = 'none';
+                }
+            }
+            var menuOptions = document.getElementsByClassName('menu-options');
+            for (var i = 0; i < menuOptions.length; i++) {
+                var openMenu = menuOptions[i];
+                if (openMenu.style.display === 'block') {
+                    openMenu.style.display = 'none';
+                }
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
