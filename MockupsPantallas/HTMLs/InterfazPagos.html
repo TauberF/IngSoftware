@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banknet Horizon - Services</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #FF9900; /* Darker orange color */
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            flex-grow: 1; /* Take up remaining space */
+            text-align: center;
+        }
+        .logo img {
+            height: 100px; /* Set max height */
+            width: auto; /* Maintain aspect ratio */
+        }
+        .menu {
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .menu-button {
+            background-color: #FF9900;
+            border: none;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+        }
+        .menu:hover {
+            background-color: #FF9900; /* Lighter highlight */
+        }
+        .menu-options {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        .menu-options button {
+            background-color: white;
+            border: none;
+            color: #FF6600;
+            padding: 10px 20px;
+            width: 300px;
+            text-align: left;
+            cursor: pointer;
+            display: block;
+            margin: 5px 0;
+        }
+        .menu-options button:hover {
+            background-color: #FF9900; /* Lighter highlight */
+            color: white;
+        }
+        .menu:hover .menu-options {
+            display: block;
+        }
+        .user-info {
+            padding: 10px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .service-block {
+            background-color: #FF9900; /* Lighter orange color */
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .service-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+        }
+        .enable-button {
+            background-color: #FF6600; /* Darker orange color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .enable-button:hover {
+            background-color: #FF9900; /* Lighter highlight */
+        }
+        .disabled {
+            color: #666; /* Grey color for disabled text */
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="menu" onclick="toggleMenuOptions()">
+        <button class="menu-button">Menu</button>
+        <div class="menu-options">
+            <button>Consultas de estados de cuenta</button>
+            <button>Transferencia entre cuentas de empresa</button>
+            <button>Consultas de saldos históricos</button>
+            <button>Transferencia entre cuentas de otros clientes del banco</button>
+        </div>
+    </div>
+    <div class="logo">
+        <img src="https://github.com/TauberF/IngSoftware/blob/main/MockupsPantallas/Logo.png?raw=true" alt="Logo">
+    </div>
+    <div class="user-info">
+        Hello, <span class="username">{username}</span>
+    </div>
+</div>
+
+<div class="content">
+    <div class="service-block">
+        <span class="service-name">Débito UM</span>
+        <button class="enable-button" onclick="enableService(this)">Habilitar débito automático</button>
+    </div>
+    <div class="service-block">
+        <span class="service-name">Cobro Peaje</span>
+        <button class="enable-button" onclick="enableService(this)">Habilitar débito automático</button>
+    </div>
+</div>
+
+<script>
+    function toggleMenuOptions() {
+        var menuOptions = document.querySelector('.menu-options');
+        if (menuOptions.style.display === 'block') {
+            menuOptions.style.display = 'none';
+        } else {
+            menuOptions.style.display = 'block';
+        }
+    }
+
+    function enableService(button) {
+        button.disabled = true;
+        button.classList.add('disabled');
+        button.innerText = 'El usuario ya está registrado';
+        button.parentNode.style.backgroundColor = '#ccc'; /* Change background color to grey */
+    }
+</script>
+
+</body>
+</html>

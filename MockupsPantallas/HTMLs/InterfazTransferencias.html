@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banknet Horizon - Transaction History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #FF6600; /* Darker orange color */
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            flex-grow: 1; /* Take up remaining space */
+            text-align: center;
+        }
+        .logo img {
+            height: 100px; /* Set max height */
+            width: auto; /* Maintain aspect ratio */
+        }
+        .menu {
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .menu-button {
+            background-color: #FF6600;
+            border: none;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+        }
+        .menu:hover {
+            background-color: #FF9900; /* Lighter highlight */
+        }
+        .menu-options {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        .menu-options button {
+            background-color: white;
+            border: none;
+            color: #FF6600;
+            padding: 10px 20px;
+            width: 300px;
+            text-align: left;
+            cursor: pointer;
+            display: block;
+            margin: 5px 0;
+        }
+        .menu-options button:hover {
+            background-color: #FF9900; /* Lighter highlight */
+            color: white;
+        }
+        .menu:hover .menu-options {
+            display: block;
+        }
+        .user-info {
+            padding: 10px;
+        }
+        .search-bar {
+            margin: 20px 20px 0;
+        }
+        .search-bar input[type="date"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+        }
+        .search-bar button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #FF6600;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .transaction-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .transaction-box {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 300px;
+            transition: background-color 0.3s;
+        }
+        .transaction-box:hover {
+            background-color: #f0f0f0; /* Light gray on hover */
+            cursor: pointer;
+        }
+        .transaction-details {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .transaction-details div {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="menu" onclick="toggleMenuOptions()">
+        <button class="menu-button">Menu</button>
+        <div class="menu-options">
+            <button>Consultas de estados de cuenta</button>
+            <button>Transferencia entre cuentas de empresa</button>
+            <button>Consultas de saldos históricos</button>
+            <button>Transferencia entre cuentas de otros clientes del banco</button>
+        </div>
+    </div>
+    <div class="logo">
+        <img src="https://github.com/TauberF/IngSoftware/blob/main/MockupsPantallas/Logo.png?raw=true" alt="Logo">
+    </div>
+    <div class="user-info">
+        Hola, <span class="username">{username}</span>
+    </div>
+</div>
+
+<div class="search-bar">
+    <label for="search-date">Buscar por fecha:</label>
+    <input type="date" id="search-date" name="search-date">
+    <button onclick="searchTransactions()">Buscar</button>
+</div>
+
+<div class="content">
+    <div class="transaction-list" id="transaction-list">
+        <div class="transaction-box">
+            <div class="transaction-details">
+                <div>Nro de Transacción: 12345</div>
+                <div>Fecha: 2024-06-01</div>
+                <div>Monto: 500.00</div>
+                <div>Moneda: USD</div>
+                <div>Tipo: Depósito</div>
+            </div>
+        </div>
+        <div class="transaction-box">
+            <div class="transaction-details">
+                <div>Nro de Transacción: 12346</div>
+                <div>Fecha: 2024-06-02</div>
+                <div>Monto: 200.00</div>
+                <div>Moneda: USD</div>
+                <div>Tipo: Débito</div>
+            </div>
+        </div>
+        <div class="transaction-box">
+            <div class="transaction-details">
+                <div>Nro de Transacción: 12347</div>
+                <div>Fecha: 2024-06-03</div>
+                <div>Monto: 1500.00</div>
+                <div>Moneda: USD</div>
+                <div>Tipo: Depósito</div>
+            </div>
+        </div>
+        <div class="transaction-box">
+            <div class="transaction-details">
+                <div>Nro de Transacción: 12348</div>
+                <div>Fecha: 2024-06-04</div>
+                <div>Monto: 750.00</div>
+                <div>Moneda: USD</div>
+                <div>Tipo: Débito</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleMenuOptions() {
+        var menuOptions = document.querySelector('.menu-options');
+        if (menuOptions.style.display === 'block') {
+            menuOptions.style.display = 'none';
+        } else {
+            menuOptions.style.display = 'block';
+        }
+    }
+    
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.menu') && !event.target.matches('.menu-button')) {
+            var dropdowns = document.getElementsByClassName('menu-options');
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.style.display === 'block') {
+                    openDropdown.style.display = 'none';
+                }
+            }
+        }
+    }
+
+    function searchTransactions() {
+        var searchDate = document.getElementById('search-date').value;
+        var transactionList = document.getElementById('transaction-list');
+        var transactions = transactionList.getElementsByClassName('transaction-box');
+
+        for (var i = 0; i < transactions.length; i++) {
+            var transaction = transactions[i];
+            var transactionDate = transaction.querySelector('.transaction-details div:nth-child(2)').innerText.split(': ')[1];
+            if (transactionDate === searchDate) {
+                transaction.style.display = 'block';
+            } else {
+                transaction.style.display = 'none';
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
